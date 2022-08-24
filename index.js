@@ -1,6 +1,8 @@
 import app from './src/app.js'
 import 'dotenv/config'
 import sequelize from './src/database/db.js'
+import './src/models/index.js'
+import loadDB from './src/database/loadDB.js'
 
 const PORT = process.env.PORT
 async function main () {
@@ -12,6 +14,10 @@ async function main () {
       force: true
       // alter: true
     })
+    console.log('All models were synchronized successfully.')
+
+    await loadDB()
+
     app.listen(PORT, () => {
       console.log(`Server on port ${PORT}`)
     })
