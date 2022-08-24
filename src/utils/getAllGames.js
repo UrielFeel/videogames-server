@@ -1,7 +1,7 @@
 import axios from 'axios'
 import 'dotenv/config'
 
-const endPoint = 'https://api.rawg.io/api/'
+export const endPoint = 'https://api.rawg.io/api/'
 const { API_KEY } = process.env
 
 function dataFormat (data) {
@@ -11,7 +11,15 @@ function dataFormat (data) {
       name: g.name,
       released: g.released,
       image: g.background_image,
-      rating: g.rating
+      rating: g.rating,
+      platforms: g.platforms?.map(p => ({
+        name: p.platform.name,
+        id: p.platform.id
+      })),
+      genres: g.genres?.map(gen => ({
+        name: gen.name,
+        id: gen.id
+      }))
     })
   })
 }
